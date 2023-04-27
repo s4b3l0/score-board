@@ -1,0 +1,22 @@
+<div class="container">
+  <nb-card size="small">
+    <nb-card-header>
+      <h3>Sign in</h3>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="form">
+        <div class="container-sm">
+          <div class="row">
+            <div class="col-12"><label>Email</label></div>
+            <div class="col-12"><input nbInput formControlName="email" type="email"></div>
+          </div>
+          <div class="row">
+            <div class="col-12"><label>Password</label></div>
+            <div class="col-12"><input formControlName="password" nbInput type="password"></div>
+          </div>
+
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</div>
