@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NbThemeModule, NbLayoutModule, NbSidebarModule, NbSidebarService, NbButtonModule} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
+import {PagesModule} from "./pages/pages.module";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AppRoutingModule } from './app-routing.module';
     NbEvaIconsModule,
     AppRoutingModule,
     NbSidebarModule,
-    NbButtonModule
+    NbButtonModule,
+    PagesModule,
   ],
   providers: [NbSidebarService],
   bootstrap: [AppComponent]
