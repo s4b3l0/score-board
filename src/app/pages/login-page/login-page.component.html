@@ -4,17 +4,19 @@
       <h3>Sign in</h3>
     </nb-card-header>
     <nb-card-body>
-      <form [formGroup]="form">
-        <div class="container-sm">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="container-sm fw-semibold">
           <div class="row">
             <div class="col-12"><label>Email</label></div>
             <div class="col-12"><input nbInput formControlName="email" type="email"></div>
           </div>
-          <div class="row">
+          <div class="row mt-3">
             <div class="col-12"><label>Password</label></div>
             <div class="col-12"><input nbInput formControlName="password" type="password"></div>
           </div>
-
+          <div class="row mt-3" *ngIf="form.valid">
+            <div class="col-12"><button nbButton fullWidth status="primary" type="submit">Submit</button></div>
+          </div>
         </div>
       </form>
     </nb-card-body>

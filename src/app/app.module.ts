@@ -7,6 +7,7 @@ import {NbThemeModule, NbLayoutModule, NbSidebarModule, NbSidebarService, NbButt
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import {PagesModule} from "./pages/pages.module";
+import {UtilModule} from "./util/util.module";
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {PagesModule} from "./pages/pages.module";
     NbSidebarModule,
     NbButtonModule,
     PagesModule,
+    UtilModule,
   ],
   providers: [NbSidebarService],
   bootstrap: [AppComponent]

@@ -7,7 +7,6 @@ import {AuthGuardService} from "./util/utils";
 import {UtilModule} from "./util/util.module";
 
 const routes: Routes = [
-
   {
     path:'home',
     component: HomeComponent,
@@ -17,10 +16,7 @@ const routes: Routes = [
     path:'login',
     component: LoginPageComponent
   },
-  {
-    path: '**',
-    redirectTo: 'home'
-  },
+
 ];
 
 @NgModule({

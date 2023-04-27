@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AuthService} from "./auth.service";
 import {AuthGuardService} from "./auth-guard.service";
-
-
+import { IsAuthenticatedDirective } from './is-authenticated.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    IsAuthenticatedDirective
+  ],
   imports: [
     CommonModule
   ],
-  providers:[
+  exports: [
+    IsAuthenticatedDirective
+  ],
+  providers: [
     AuthService,
     AuthGuardService
   ]
