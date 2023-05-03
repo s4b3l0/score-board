@@ -8,14 +8,14 @@
         <div class="container-sm fw-semibold">
           <div class="row">
             <div class="col-12"><label>Email</label></div>
-            <div class="col-12"><input nbInput formControlName="email" type="email"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="email" type="email"></div>
           </div>
           <div class="row mt-3">
             <div class="col-12"><label>Password</label></div>
-            <div class="col-12"><input nbInput formControlName="password" type="password"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="password" type="password"></div>
           </div>
           <div class="row mt-3" *ngIf="form.valid">
-            <div class="col-12"><button nbButton fullWidth status="primary" type="submit">Submit</button></div>
+            <div class="col-12"><button nbButton fullWidth status="primary" type="submit">Login</button></div>
           </div>
           <div class="row mt-3" *ngIf="form.invalid">
             <div class="col-12"><a routerLink="signup">Sign Up</a></div>

@@ -5,6 +5,7 @@ import {LoginPageComponent} from "./pages/login-page/login-page.component";
 import {HomeComponent} from "./pages/logged-in-pages/home/home.component";
 import {AuthGuardService} from "./util/utils";
 import {UtilModule} from "./util/util.module";
+import {SignUpComponent} from "./pages/sign-up/sign-up.component";
 
 const routes: Routes = [
   {
@@ -14,8 +15,14 @@ const routes: Routes = [
   },
   {
     path:'login',
-    component: LoginPageComponent
+    component: LoginPageComponent,
+    pathMatch: "full"
   },
+  {
+    path:'login/signup',
+    component: SignUpComponent,
+    pathMatch: "full"
+  }
 
 ];
 

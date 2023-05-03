@@ -1,5 +1,5 @@
 <div class="container">
-  <nb-card size="small">
+  <nb-card size="medium">
     <nb-card-header>
       <h3>Sign Up</h3>
     </nb-card-header>
@@ -8,22 +8,22 @@
         <div class="container-sm fw-semibold">
           <div class="row">
             <div class="col-12"><label>Username</label></div>
-            <div class="col-12"><input nbInput formControlName="username" type="text"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="username" type="text"></div>
           </div>
           <div class="row">
             <div class="col-12"><label>Email</label></div>
-            <div class="col-12"><input nbInput formControlName="email" type="email"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="email" type="email"></div>
           </div>
           <div class="row mt-3">
             <div class="col-12"><label>Password</label></div>
-            <div class="col-12"><input nbInput formControlName="password" type="password"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="password" type="password"></div>
           </div>
           <div class="row mt-3">
             <div class="col-12"><label>Password</label></div>
-            <div class="col-12"><input nbInput formControlName="passwordMatch" type="password"></div>
+            <div class="col-12"><input fullWidth nbInput formControlName="passwordMatch" type="password"></div>
           </div>
           <div class="row mt-3" *ngIf="form.valid">
-            <div class="col-12"><button nbButton fullWidth status="primary" type="submit">Submit</button></div>
+            <div class="col-12"><button nbButton fullWidth status="primary" type="submit">Register</button></div>
           </div>
         </div>
       </form>
