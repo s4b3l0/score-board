@@ -1,0 +1,39 @@
+<nb-card [size]="size">
+  <nb-card-header>
+    <h3>
+      {{title}}
+    </h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-12"><button nbButton fullWidth size="small">Add <nb-icon icon="plus-outline"></nb-icon></button></div>
+    </div>
+    <ngx-datatable
+      class="material"
+      [rows]="rows"
+      [loadingIndicator]="loadingIndicator"
+      [columns]="columns"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      rowHeight="auto"
+      [reorderable]="reorderable"
+    >
+
+      <ngx-datatable-column name="Actions" prop="name">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
+                     let-row="row">
+          <button nbButton type="button" class="btn btn-outline-success"
+                  (click)='edit(value)'>Success {{rowIndex}}</button>
+          <button nbButton type="button" class="btn btn-outline-danger"
+                  (click)='delete(value)'>Danger</button>
+
+
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Name" prop='name' >
+      </ngx-datatable-column>
+
+    </ngx-datatable>
+  </nb-card-body>
+</nb-card>
