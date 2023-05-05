@@ -13,24 +13,27 @@ import { PatientDashboardComponent } from './logged-in-pages/patient-dashboard/p
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 @NgModule({
-  declarations: [
-    LoginPageComponent,
-    SignUpComponent,
-    CreateAppointementComponent,
-    ViewAvailableServiceComponent,
-    ViewAvailableDeseaseComponent,
-    PatientDashboardComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    CommonModule,
-    NbCardModule,
-    NbInputModule,
-    NbButtonModule,
-    ReactiveFormsModule,
-    RouterLinkWithHref,
-    NbIconModule,
-    NgxDatatableModule
-  ]
+    declarations: [
+        LoginPageComponent,
+        SignUpComponent,
+        CreateAppointementComponent,
+        ViewAvailableServiceComponent,
+        ViewAvailableDeseaseComponent,
+        PatientDashboardComponent
+    ],
+    exports: [
+        PatientDashboardComponent
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        CommonModule,
+        NbCardModule,
+        NbInputModule,
+        NbButtonModule,
+        ReactiveFormsModule,
+        RouterLinkWithHref,
+        NbIconModule,
+        NgxDatatableModule
+    ]
 })
 export class PagesModule { }

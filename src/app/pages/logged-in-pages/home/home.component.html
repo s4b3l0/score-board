@@ -1,1 +1,18 @@
-<p>home works!</p>
+<nb-card  size="large">
+  <nb-card-header><h1>{{name}}</h1></nb-card-header>
+  <nb-card-body>
+    <div clas="row">
+      <div class="col-8">
+        <label for="patient"></label>
+        <input id="patient" [(ngModel)]="patientName">
+      </div>
+      <div class="col-4">
+        <button nbButton (click)="getPatient()">Find Patient</button>
+      </div>
+    </div>
+    <app-patient-dashboard>
+
+    </app-patient-dashboard>
+
+  </nb-card-body>
+</nb-card>

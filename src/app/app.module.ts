@@ -8,6 +8,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import {PagesModule} from "./pages/pages.module";
 import {UtilModule} from "./util/util.module";
+import {LoggedInModule} from "./pages/logged-in-pages/logged-in/logged-in.module";
+import {ShareComponentsModule} from "./share-components/share-components.module";
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import {UtilModule} from "./util/util.module";
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'corporate' }),
     NbLayoutModule,
+    LoggedInModule,
+    ShareComponentsModule,
     NbEvaIconsModule,
     AppRoutingModule,
     NbSidebarModule,
