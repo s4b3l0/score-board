@@ -1,7 +1,19 @@
 <nb-layout>
-  <nb-layout-header fixed >Company Name</nb-layout-header>
+  <nb-layout-header fixed >
+    <div class="header-container hidden-print">
+      <h3 style="color: white">E-Health </h3>
+    </div>
 
-  <nb-sidebar *isAuthenticated>Sidebar Content</nb-sidebar>
+
+    <div class="header-container another-header">
+    <nb-actions *isAuthenticated>
+      <nb-action icon="log-out-outline" badgeStatus="warning" (click)="logout()" ></nb-action>
+    </nb-actions>
+    </div>
+  </nb-layout-header>
+
+<!--  <nb-sidebar *isAuthenticated>Sidebar Content</nb-sidebar>-->
+
 
   <nb-layout-column>
     <router-outlet></router-outlet>

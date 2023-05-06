@@ -1,18 +1,21 @@
-<nb-card  size="large">
+<nb-card size="large">
   <nb-card-header><h1>{{name}}</h1></nb-card-header>
-  <nb-card-body>
-    <div clas="row">
-      <div class="col-8">
-        <label for="patient"></label>
-        <input id="patient" [(ngModel)]="patientName">
+  <nb-card-body class="w-100">
+    <div class="container">
+      <div clas="row">
+        <div class="col-md-9">
+          <label for="patient">Patient Name</label>
+          <input id="patient" fullWidth nbInput [(ngModel)]="patientName">
+        </div>
+        <div class="col-md-3">
+          <button nbButton fullWidth (click)="getPatient()">Find Patient</button>
+        </div>
       </div>
-      <div class="col-4">
-        <button nbButton (click)="getPatient()">Find Patient</button>
+      <div class="row">
+        <app-patient-dashboard>
+        </app-patient-dashboard>
       </div>
     </div>
-    <app-patient-dashboard>
-
-    </app-patient-dashboard>
 
   </nb-card-body>
 </nb-card>

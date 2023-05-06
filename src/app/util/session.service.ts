@@ -15,7 +15,8 @@ export class SessionService {
   constructor(private httpClient: HttpClient,
               private router:Router) {
     if (this.getSessionData()) {
-      this._sessionSubject.next(JSON.parse(this.getSessionData()|| '{}'));
+      let session = JSON.stringify({email : this.getSessionData()});
+      this._sessionSubject.next(JSON.parse(session || '{}'));
     }
   }
 
@@ -30,15 +31,22 @@ export class SessionService {
   }
 
   setSession (data: AuthDetails) {
-    this.httpClient.post(`${this.url}/auth/login`, data).subscribe(value => {
+    this.httpClient.post(`${this.url}/auth/login`, data).subscribe((value: AuthDetails) => {
       console.log(value);
+      if (!value) return;
+      sessionStorage.setItem("username", value.username || '');
+      sessionStorage.setItem("email", data.email || '');
+      sessionStorage.setItem("auth", JSON.stringify(value.permissions));
+      this.sessionSubject = data;
     });
-    sessionStorage.setItem("session", JSON.stringify(data))
-    this.sessionSubject = data;
   }
 
   getSessionData() {
-    return sessionStorage.getItem("session");
+    return sessionStorage.getItem("email");
+  }
+
+  sessionDestroy() {
+    sessionStorage.clear();
   }
 
   createUser(data: AuthDetails | any) {
