@@ -7,11 +7,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {RouterLinkWithHref} from "@angular/router";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import { CreateAppointmentComponent } from './sign-up/create-appointment/create-appointment.component';
 
 @NgModule({
     declarations: [
         LoginPageComponent,
         SignUpComponent,
+        CreateAppointmentComponent,
     ],
     imports: [
         BrowserAnimationsModule,

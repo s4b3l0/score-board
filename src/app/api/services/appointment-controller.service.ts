@@ -17,10 +17,13 @@ import { PageAppointment } from '../models/page-appointment';
   providedIn: 'root',
 })
 class AppointmentControllerService extends __BaseService {
+  static readonly getAllUsingGETPath = '/appointment';
   static readonly deleteUsingPOSTPath = '/appointment/delete/{id}';
   static readonly getDoctorUsingGETPath = '/appointment/doctor/{email}/{flag}';
   static readonly saveUsingPOSTPath = '/appointment/save';
   static readonly updateUsingPOSTPath = '/appointment/update/{id}';
+  static readonly getOneUsingGETPath = '/appointment/{id}';
+  static readonly updateUsingPUTPath = '/appointment/{id}';
   static readonly getUsingGETPath = '/appointment/{itemsPerPage}/{pageNo}';
 
   constructor(
@@ -28,6 +31,41 @@ class AppointmentControllerService extends __BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGETResponse(): __Observable<__StrictHttpResponse<Array<Appointment>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/appointment`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Appointment>>;
+      })
+    );
+  }
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGET(): __Observable<Array<Appointment>> {
+    return this.getAllUsingGETResponse().pipe(
+      __map(_r => _r.body as Array<Appointment>)
+    );
   }
 
   /**
@@ -40,7 +78,7 @@ class AppointmentControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOSTResponse(params: AppointmentControllerService.DeleteUsingPOSTParams): __Observable<__StrictHttpResponse<{}>> {
+  deleteUsingPOSTResponse(params: AppointmentControllerService.DeleteUsingPOSTParams): __Observable<__StrictHttpResponse<Appointment>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -59,7 +97,7 @@ class AppointmentControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Appointment>;
       })
     );
   }
@@ -73,9 +111,9 @@ class AppointmentControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOST(params: AppointmentControllerService.DeleteUsingPOSTParams): __Observable<{}> {
+  deleteUsingPOST(params: AppointmentControllerService.DeleteUsingPOSTParams): __Observable<Appointment> {
     return this.deleteUsingPOSTResponse(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Appointment)
     );
   }
 
@@ -216,6 +254,93 @@ class AppointmentControllerService extends __BaseService {
   }
 
   /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGETResponse(id: string): __Observable<__StrictHttpResponse<Appointment>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/appointment/${encodeURIComponent(String(id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Appointment>;
+      })
+    );
+  }
+  /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGET(id: string): __Observable<Appointment> {
+    return this.getOneUsingGETResponse(id).pipe(
+      __map(_r => _r.body as Appointment)
+    );
+  }
+
+  /**
+   * update
+   * @param params The `AppointmentControllerService.UpdateUsingPUTParams` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUTResponse(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = params.item;
+
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/appointment/${encodeURIComponent(String(params.id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * update
+   * @param params The `AppointmentControllerService.UpdateUsingPUTParams` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUT(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<{}> {
+    return this.updateUsingPUTResponse(params).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
    * get
    * @param params The `AppointmentControllerService.GetUsingGETParams` containing the following parameters:
    *
@@ -303,6 +428,22 @@ module AppointmentControllerService {
    * Parameters for updateUsingPOST
    */
   export interface UpdateUsingPOSTParams {
+
+    /**
+     * item
+     */
+    item: Appointment;
+
+    /**
+     * id
+     */
+    id: number;
+  }
+
+  /**
+   * Parameters for updateUsingPUT
+   */
+  export interface UpdateUsingPUTParams {
 
     /**
      * item

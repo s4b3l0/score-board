@@ -9,14 +9,17 @@ import {
   NbSidebarModule,
   NbSidebarService,
   NbButtonModule,
-  NbDialogService, NbDialogModule, NbActionsModule
+  NbDialogModule,
+  NbActionsModule,
+  NbDatepickerModule,
+  NbTimepickerModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
 import {PagesModule} from "./pages/pages.module";
 import {UtilModule} from "./util/util.module";
 import {LoggedInModule} from "./pages/logged-in-pages/logged-in.module";
-import {ShareComponentsModule} from "./share-components/share-components.module";
+import {ApiModule} from "./api/api.module";
 
 @NgModule({
   declarations: [
@@ -29,12 +32,15 @@ import {ShareComponentsModule} from "./share-components/share-components.module"
     NbLayoutModule,
     LoggedInModule,
     NbDialogModule.forRoot(),
+    NbTimepickerModule.forRoot(),
+    ApiModule,
     NbEvaIconsModule,
     AppRoutingModule,
     NbSidebarModule,
     NbButtonModule,
     PagesModule,
     UtilModule,
+    NbDatepickerModule.forRoot(),
     NbActionsModule,
   ],
   providers: [NbSidebarService],

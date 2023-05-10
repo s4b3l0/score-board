@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+<!--      Appointmetn-->
+      <app-item-management (openAdd)="addAppointment()" title="Appointments" [mode]="Mode.APPOINTMENT" [rows]="appointment" [columns]="getServiceColumns()" ></app-item-management>
+    </div>
+    <div class="col-md-6">
+<!--      disease-->
+      <app-item-management (openAdd)="addDisease()" title="Disease" [mode]="Mode.DISEASE" [rows]="disease" [columns]="getDiseaseColumns()"></app-item-management>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <!--      Feedback-->
+      <app-item-management (openAdd)="addFeedBack()" title="Feedback" [mode]="Mode.FEEDBACK"  [rows]="feedback" [columns]="getFeedbackColumns()"></app-item-management>
+    </div>
+  </div>
+</div>

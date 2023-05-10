@@ -10,6 +10,9 @@ import {NgxDatatableModule} from "@swimlane/ngx-datatable";
   declarations: [
     ItemManagementComponent
   ],
+  exports: [
+    ItemManagementComponent
+  ],
   imports: [
     CommonModule,
     NbButtonModule,

@@ -17,11 +17,14 @@ import { PageFeedback } from '../models/page-feedback';
   providedIn: 'root',
 })
 class FeedbackControllerService extends __BaseService {
+  static readonly getAllUsingGET2Path = '/feedback';
   static readonly deleteUsingPOST2Path = '/feedback/delete/{id}';
   static readonly getDoctorUsingGET1Path = '/feedback/doctor/{email}';
   static readonly getPatientUsingGETPath = '/feedback/patient/{email}';
   static readonly saveUsingPOST2Path = '/feedback/save';
   static readonly updateUsingPOST2Path = '/feedback/update/{id}';
+  static readonly getOneUsingGET2Path = '/feedback/{id}';
+  static readonly updateUsingPUT2Path = '/feedback/{id}';
   static readonly getUsingGET2Path = '/feedback/{itemsPerPage}/{pageNo}';
 
   constructor(
@@ -29,6 +32,41 @@ class FeedbackControllerService extends __BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGET2Response(): __Observable<__StrictHttpResponse<Array<Feedback>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/feedback`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Feedback>>;
+      })
+    );
+  }
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGET2(): __Observable<Array<Feedback>> {
+    return this.getAllUsingGET2Response().pipe(
+      __map(_r => _r.body as Array<Feedback>)
+    );
   }
 
   /**
@@ -41,7 +79,7 @@ class FeedbackControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOST2Response(params: FeedbackControllerService.DeleteUsingPOST2Params): __Observable<__StrictHttpResponse<{}>> {
+  deleteUsingPOST2Response(params: FeedbackControllerService.DeleteUsingPOST2Params): __Observable<__StrictHttpResponse<Feedback>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -60,7 +98,7 @@ class FeedbackControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Feedback>;
       })
     );
   }
@@ -74,9 +112,9 @@ class FeedbackControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOST2(params: FeedbackControllerService.DeleteUsingPOST2Params): __Observable<{}> {
+  deleteUsingPOST2(params: FeedbackControllerService.DeleteUsingPOST2Params): __Observable<Feedback> {
     return this.deleteUsingPOST2Response(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Feedback)
     );
   }
 
@@ -244,6 +282,93 @@ class FeedbackControllerService extends __BaseService {
   }
 
   /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGET2Response(id: string): __Observable<__StrictHttpResponse<Feedback>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/feedback/${encodeURIComponent(String(id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Feedback>;
+      })
+    );
+  }
+  /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGET2(id: string): __Observable<Feedback> {
+    return this.getOneUsingGET2Response(id).pipe(
+      __map(_r => _r.body as Feedback)
+    );
+  }
+
+  /**
+   * update
+   * @param params The `FeedbackControllerService.UpdateUsingPUT2Params` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUT2Response(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = params.item;
+
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/feedback/${encodeURIComponent(String(params.id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * update
+   * @param params The `FeedbackControllerService.UpdateUsingPUT2Params` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUT2(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<{}> {
+    return this.updateUsingPUT2Response(params).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
    * get
    * @param params The `FeedbackControllerService.GetUsingGET2Params` containing the following parameters:
    *
@@ -315,6 +440,22 @@ module FeedbackControllerService {
    * Parameters for updateUsingPOST2
    */
   export interface UpdateUsingPOST2Params {
+
+    /**
+     * item
+     */
+    item: Feedback;
+
+    /**
+     * id
+     */
+    id: number;
+  }
+
+  /**
+   * Parameters for updateUsingPUT2
+   */
+  export interface UpdateUsingPUT2Params {
 
     /**
      * item

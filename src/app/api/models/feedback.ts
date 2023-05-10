@@ -1,8 +1,8 @@
 /* tslint:disable */
-import { UserAccount } from './user-account';
 export interface Feedback {
-  doctor?: UserAccount;
+  doctor?: string;
   id?: number;
-  name?: string;
-  patient?: UserAccount;
+  patient?: string;
+  text?: string;
+  title?: string;
 }

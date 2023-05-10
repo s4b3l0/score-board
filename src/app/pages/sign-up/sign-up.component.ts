@@ -10,6 +10,8 @@ import {
 } from "@angular/forms";
 import {SessionService} from "../../util/session.service";
 import {Router} from "@angular/router";
+import {Patient} from "../../api/models/patient";
+import {PatientControllerService} from "../../api/services/patient-controller.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -21,8 +23,8 @@ export class SignUpComponent implements OnInit {
   form : FormGroup = this.initForm();
 
   constructor(private  fb:FormBuilder,
-              private sessionService:SessionService,
-              private router: Router) { }
+              private router :Router,
+              private patientControllerService: PatientControllerService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +36,7 @@ export class SignUpComponent implements OnInit {
       password : this.fb.control( "", Validators.required),
       passwordMatch : this.fb.control("", Validators.required)
     });
-    form.addValidators(this.matchValidator(this.form.get('password'), this.form.get('passwordMatch')))
+    form.addValidators(this.matchValidator(form.get('password'), form.get('passwordMatch')))
     return form;
   }
 
@@ -50,7 +52,21 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
-    this.sessionService.createUser(this.form.value);
+    const patient : Patient = {
+      email: this.form.value.email,
+      userAccount : {
+        email: this.form.value.email,
+        userName: this.form.value.username,
+        accountType: "PATIENT"
+      }
+    }
+    this.patientControllerService.createUserUsingPOST({patient: patient, password: this.form.value.password}).subscribe(value => {
+      console.log(value);
+      if (value) {
+        this.form.reset();
+        this.router.navigate(['/login']);
+      }
+    });
 
   }
 }

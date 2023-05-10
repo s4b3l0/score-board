@@ -1,4 +1,31 @@
-<nb-card [size]="size">
+<!--<nb-card [size]="size">-->
+<!--  <nb-card-header>-->
+<!--    <h3>-->
+<!--      {{title}}-->
+<!--    </h3>-->
+<!--  </nb-card-header>-->
+<!--  <nb-card-body>-->
+<!--    <div class="row">-->
+<!--      <div class="col-sm-12"><button nbButton fullWidth size="small" (click)="clickAdd()">Add <nb-icon icon="plus-outline"></nb-icon></button></div>-->
+<!--    </div>-->
+<!--    <ngx-datatable-->
+<!--      *ngIf="rows"-->
+<!--      [rows]="rows"-->
+<!--      class="material"-->
+<!--      [loadingIndicator]="loadingIndicator"-->
+<!--      [columnMode]="'force'"-->
+<!--      [headerHeight]="50"-->
+<!--      [footerHeight]="50"-->
+<!--      [rowHeight]="'auto'"-->
+<!--      [columns]="columns"-->
+<!--      [reorderable]="reorderable">-->
+<!--    </ngx-datatable>-->
+<!--  </nb-card-body>-->
+<!--</nb-card>-->
+
+
+
+<nb-card [size]="size" *ngIf="mode === Mode.APPOINTMENT">
   <nb-card-header>
     <h3>
       {{title}}
@@ -6,34 +33,97 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-12"><button nbButton fullWidth size="small">Add <nb-icon icon="plus-outline"></nb-icon></button></div>
-    </div>
-    <ngx-datatable
-      class="material"
-      [rows]="rows"
-      [loadingIndicator]="loadingIndicator"
-      [columns]="columns"
-      [columnMode]="ColumnMode.force"
-      [headerHeight]="50"
-      [footerHeight]="50"
-      rowHeight="auto"
-      [reorderable]="reorderable"
-    >
+      <div class="col-sm-12"><button nbButton fullWidth size="small" (click)="clickAdd()">Add <nb-icon icon="plus-outline"></nb-icon></button></div>
+    </div >
+      <table class="table table-hover">
+        <thead>
+          <th >Time From</th>
+          <th >Time To</th>
+          <th >Doctor</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+                <td>{{row["timeFrom"]}}</td>
+                <td>{{row["timeTo"]}}</td>
+                <td>{{row["doctor"]}}</td>
+                <td><button nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
+          </tr>
+          <tr *ngIf="rows">
+            <td colspan="3">{{getCount(rows)}}</td>
+          </tr>
+          <ng-container *ngIf="rows && rows.length == 0">
+            No content to show
+          </ng-container>
+        </tbody>
+      </table>
+  </nb-card-body>
+</nb-card>
 
-      <ngx-datatable-column name="Actions" prop="name">
-        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value"
-                     let-row="row">
-          <button nbButton type="button" class="btn btn-outline-success"
-                  (click)='edit(value)'>Success {{rowIndex}}</button>
-          <button nbButton type="button" class="btn btn-outline-danger"
-                  (click)='delete(value)'>Danger</button>
+
+<nb-card [size]="size" *ngIf="mode === Mode.DISEASE">
+  <nb-card-header>
+    <h3>
+      {{title}}
+    </h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-12"><button nbButton fullWidth size="small"  (click)="clickAdd()">Add <nb-icon icon="plus-outline"></nb-icon></button></div>
+    </div >
+    <table class="table table-hover">
+      <thead>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Action</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of rows">
+        <td>{{row["type"]}}</td>
+        <td>{{row["name"]}}</td>
+        <td><button nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
+      </tr>
+      <tr *ngIf="rows">
+        <td colspan="3">{{getCount(rows)}} rows</td>
+      </tr>
+      <ng-container *ngIf="rows && rows.length == 0">
+        No content to show
+      </ng-container>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
 
 
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Name" prop='name' >
-      </ngx-datatable-column>
-
-    </ngx-datatable>
+<nb-card [size]="size" *ngIf="mode === Mode.FEEDBACK">
+  <nb-card-header>
+    <h3>
+      {{title}}
+    </h3>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-12"><button nbButton fullWidth size="small"  (click)="clickAdd()">Add <nb-icon icon="plus-outline"></nb-icon></button></div>
+    </div >
+    <table class="table table-hover">
+      <thead>
+      <th>Doctor</th>
+      <th>Summary</th>
+      <th></th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of rows">
+        <td>{{row["doctor"]}}</td>
+        <td>{{row["name"]}}</td>
+        <td><button nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
+      </tr>
+      <tr *ngIf="rows">
+        <td colspan="3">{{getCount(rows)}} rows</td>
+      </tr>
+      <ng-container *ngIf="rows && rows.length == 0">
+        No content to show
+      </ng-container>
+      </tbody>
+    </table>
   </nb-card-body>
 </nb-card>

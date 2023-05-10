@@ -17,9 +17,13 @@ import { PageDisease } from '../models/page-disease';
   providedIn: 'root',
 })
 class DiseaseControllerService extends __BaseService {
+  static readonly getAllUsingGET1Path = '/disease';
   static readonly deleteUsingPOST1Path = '/disease/delete/{id}';
+  static readonly getByPatientEmailUsingGETPath = '/disease/patient/{email}';
   static readonly saveUsingPOST1Path = '/disease/save';
   static readonly updateUsingPOST1Path = '/disease/update/{id}';
+  static readonly getOneUsingGET1Path = '/disease/{id}';
+  static readonly updateUsingPUT1Path = '/disease/{id}';
   static readonly getUsingGET1Path = '/disease/{itemsPerPage}/{pageNo}';
 
   constructor(
@@ -27,6 +31,41 @@ class DiseaseControllerService extends __BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGET1Response(): __Observable<__StrictHttpResponse<Array<Disease>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/disease`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Disease>>;
+      })
+    );
+  }
+  /**
+   * getAll
+   * @return OK
+   */
+  getAllUsingGET1(): __Observable<Array<Disease>> {
+    return this.getAllUsingGET1Response().pipe(
+      __map(_r => _r.body as Array<Disease>)
+    );
   }
 
   /**
@@ -39,7 +78,7 @@ class DiseaseControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOST1Response(params: DiseaseControllerService.DeleteUsingPOST1Params): __Observable<__StrictHttpResponse<{}>> {
+  deleteUsingPOST1Response(params: DiseaseControllerService.DeleteUsingPOST1Params): __Observable<__StrictHttpResponse<Disease>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -58,7 +97,7 @@ class DiseaseControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Disease>;
       })
     );
   }
@@ -72,9 +111,47 @@ class DiseaseControllerService extends __BaseService {
    *
    * @return OK
    */
-  deleteUsingPOST1(params: DiseaseControllerService.DeleteUsingPOST1Params): __Observable<{}> {
+  deleteUsingPOST1(params: DiseaseControllerService.DeleteUsingPOST1Params): __Observable<Disease> {
     return this.deleteUsingPOST1Response(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Disease)
+    );
+  }
+
+  /**
+   * getByPatientEmail
+   * @param email email
+   * @return OK
+   */
+  getByPatientEmailUsingGETResponse(email: string): __Observable<__StrictHttpResponse<Array<Disease>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/disease/patient/${encodeURIComponent(String(email))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<Disease>>;
+      })
+    );
+  }
+  /**
+   * getByPatientEmail
+   * @param email email
+   * @return OK
+   */
+  getByPatientEmailUsingGET(email: string): __Observable<Array<Disease>> {
+    return this.getByPatientEmailUsingGETResponse(email).pipe(
+      __map(_r => _r.body as Array<Disease>)
     );
   }
 
@@ -166,6 +243,93 @@ class DiseaseControllerService extends __BaseService {
   }
 
   /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGET1Response(id: string): __Observable<__StrictHttpResponse<Disease>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `/disease/${encodeURIComponent(String(id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Disease>;
+      })
+    );
+  }
+  /**
+   * getOne
+   * @param id id
+   * @return OK
+   */
+  getOneUsingGET1(id: string): __Observable<Disease> {
+    return this.getOneUsingGET1Response(id).pipe(
+      __map(_r => _r.body as Disease)
+    );
+  }
+
+  /**
+   * update
+   * @param params The `DiseaseControllerService.UpdateUsingPUT1Params` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUT1Response(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = params.item;
+
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/disease/${encodeURIComponent(String(params.id))}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * update
+   * @param params The `DiseaseControllerService.UpdateUsingPUT1Params` containing the following parameters:
+   *
+   * - `item`: item
+   *
+   * - `id`: id
+   *
+   * @return OK
+   */
+  updateUsingPUT1(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<{}> {
+    return this.updateUsingPUT1Response(params).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
    * get
    * @param params The `DiseaseControllerService.GetUsingGET1Params` containing the following parameters:
    *
@@ -237,6 +401,22 @@ module DiseaseControllerService {
    * Parameters for updateUsingPOST1
    */
   export interface UpdateUsingPOST1Params {
+
+    /**
+     * item
+     */
+    item: Disease;
+
+    /**
+     * id
+     */
+    id: number;
+  }
+
+  /**
+   * Parameters for updateUsingPUT1
+   */
+  export interface UpdateUsingPUT1Params {
 
     /**
      * item

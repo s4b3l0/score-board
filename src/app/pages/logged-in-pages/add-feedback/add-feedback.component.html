@@ -1,0 +1,22 @@
+<nb-card>
+  <nb-card-header>Feedback</nb-card-header>
+  <nb-card-body>
+    <div class="container">
+      <form [formGroup]="form" (ngSubmit)="saveFeeback()">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Title</label>
+            <input fullWidth formControlName="title" nbInput>
+          </div>
+          <div class="col-md-12">
+            <label>Text</label>
+            <textarea fullWidth formControlName="text"  nbInput></textarea>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" *ngIf="form.valid" nbButton>Save Feedback</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+</nb-card>

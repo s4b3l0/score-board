@@ -3,6 +3,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
+import { UserAccountControllerService } from './services/user-account-controller.service';
 import { AppointmentControllerService } from './services/appointment-controller.service';
 import { AuthenticationControllerService } from './services/authentication-controller.service';
 import { DiseaseControllerService } from './services/disease-controller.service';
@@ -22,6 +23,7 @@ import { PatientControllerService } from './services/patient-controller.service'
   declarations: [],
   providers: [
     ApiConfiguration,
+    UserAccountControllerService,
     AppointmentControllerService,
     AuthenticationControllerService,
     DiseaseControllerService,

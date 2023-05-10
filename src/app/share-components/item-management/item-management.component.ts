@@ -1,10 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {NbComponentSize} from "@nebular/theme";
+import {Appointment} from "../../api/models/appointment";
+import {Feedback} from "../../api/models/feedback";
+
+export enum Mode  {
+  APPOINTMENT,
+  DISEASE,
+  FEEDBACK,
+
+}
 
 @Component({
   selector: 'app-item-management',
   templateUrl: './item-management.component.html',
-  styleUrls: ['./item-management.component.css']
+  styleUrls: ['./item-management.component.css'],
 })
 export class ItemManagementComponent implements OnInit {
 
@@ -12,41 +21,61 @@ export class ItemManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  rows = [];
+  private _rows : any[] | undefined | null | Appointment[];
   loadingIndicator = true;
   reorderable = true;
+  @Output()
+  openAdd = new EventEmitter<String>();
 
-  columns = [{ prop: 'name' }, { name: 'Gender' }, { name: 'Company', sortable: false }];
+  @Input()
+  columns : {prop: string} | any = [{ prop: 'name' }, { name: 'Gender' }, { name: 'Company', sortable: false }];
 
-  ColumnMode = ColumnMode;
-  title: string ='';
-  size: 'small' | 'medium' | 'large' = "small";
+  @Input()
+  title: string  = '';
 
-  constructor() {
-    this.fetch((data: never[]) => {
-      this.rows = data;
-      setTimeout(() => {
-        this.loadingIndicator = false;
-      }, 1500);
-    });
-  }
+  @Input()
+  size: NbComponentSize = 'small';
 
-  fetch(cb: { (data: never[]): void; (arg0: any): void; }) {
-    const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/company.json`);
+  @Input()
+  mode: Mode | undefined;
+  Mode= Mode;
 
-    req.onload = () => {
-      cb(JSON.parse(req.response));
-    };
-
-    req.send();
-  }
-
-  edit(value: any) {
-
+  edit(value: any | undefined) {
   }
 
   delete(value: any) {
+  }
 
+  clickAdd() {
+    this.openAdd.emit('add');
+  }
+
+  onSelectRed(row: any) {
+    console.log(row)
+  }
+
+  onSelectBlue(value: any) {
+   console.log(value)
+  }
+
+
+  @Input()
+  get rows(): any[] | undefined | null | Appointment[] | Feedback[] {
+    return this._rows;
+  }
+
+  set rows(value: any[] | undefined | null) {
+    if (value) this._rows = [...value];
+  }
+
+  getCount(rows: any[] | Appointment[]) {
+    if (rows) {
+      if(rows.length > 1) {
+        return `${rows.length} rows`
+      } else if (rows.length == 1) {
+        return `${rows.length} row`
+      }
+    }
+    return 0;
   }
 }
