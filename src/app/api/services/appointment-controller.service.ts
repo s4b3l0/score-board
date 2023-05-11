@@ -21,7 +21,6 @@ class AppointmentControllerService extends __BaseService {
   static readonly deleteUsingPOSTPath = '/appointment/delete/{id}';
   static readonly getDoctorUsingGETPath = '/appointment/doctor/{email}/{flag}';
   static readonly saveUsingPOSTPath = '/appointment/save';
-  static readonly updateUsingPOSTPath = '/appointment/update/{id}';
   static readonly getOneUsingGETPath = '/appointment/{id}';
   static readonly updateUsingPUTPath = '/appointment/{id}';
   static readonly getUsingGETPath = '/appointment/{itemsPerPage}/{pageNo}';
@@ -205,60 +204,11 @@ class AppointmentControllerService extends __BaseService {
   }
 
   /**
-   * update
-   * @param params The `AppointmentControllerService.UpdateUsingPOSTParams` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOSTResponse(params: AppointmentControllerService.UpdateUsingPOSTParams): __Observable<__StrictHttpResponse<{}>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = params.item;
-
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/appointment/update/${encodeURIComponent(String(params.id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
-      })
-    );
-  }
-  /**
-   * update
-   * @param params The `AppointmentControllerService.UpdateUsingPOSTParams` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST(params: AppointmentControllerService.UpdateUsingPOSTParams): __Observable<{}> {
-    return this.updateUsingPOSTResponse(params).pipe(
-      __map(_r => _r.body as {})
-    );
-  }
-
-  /**
    * getOne
    * @param id id
    * @return OK
    */
-  getOneUsingGETResponse(id: string): __Observable<__StrictHttpResponse<Appointment>> {
+  getOneUsingGETResponse(id: number): __Observable<__StrictHttpResponse<Appointment>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -285,7 +235,7 @@ class AppointmentControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  getOneUsingGET(id: string): __Observable<Appointment> {
+  getOneUsingGET(id: number): __Observable<Appointment> {
     return this.getOneUsingGETResponse(id).pipe(
       __map(_r => _r.body as Appointment)
     );
@@ -301,7 +251,7 @@ class AppointmentControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUTResponse(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<__StrictHttpResponse<{}>> {
+  updateUsingPUTResponse(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<__StrictHttpResponse<Appointment>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -320,7 +270,7 @@ class AppointmentControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Appointment>;
       })
     );
   }
@@ -334,9 +284,9 @@ class AppointmentControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<{}> {
+  updateUsingPUT(params: AppointmentControllerService.UpdateUsingPUTParams): __Observable<Appointment> {
     return this.updateUsingPUTResponse(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Appointment)
     );
   }
 
@@ -422,22 +372,6 @@ module AppointmentControllerService {
      * email
      */
     email: string;
-  }
-
-  /**
-   * Parameters for updateUsingPOST
-   */
-  export interface UpdateUsingPOSTParams {
-
-    /**
-     * item
-     */
-    item: Appointment;
-
-    /**
-     * id
-     */
-    id: number;
   }
 
   /**

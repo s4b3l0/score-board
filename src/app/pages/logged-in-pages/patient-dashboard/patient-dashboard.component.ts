@@ -62,11 +62,8 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
         //   }
         // }));
 
-        this.getDiseaseRows()
-        let sub2 = this.feedbackControllerService.getAllUsingGET2().subscribe((value) => {
-          this.feedback = value;
-        });
-
+        this.getDiseaseRows();
+        this.getFeedbackRows();
         this.appointment$ = this.appointmentControllerService.getDoctorUsingGET({
           flag: 'x',
           email: patient.userAccount?.email || ''
@@ -77,7 +74,6 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
           this.userAccount = value;
         });
 
-        this.subscriptions.add(...[ sub2, sub4])
       }
     });
   }
@@ -87,7 +83,9 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
   }
 
   getFeedbackRows() {
-    return this.patient?.feedbacks;
+    this.feedbackControllerService.getAllUsingGET2().subscribe((value) => {
+      this.feedback = value;
+    });
   }
 
   getDiseaseRows() {
@@ -127,7 +125,7 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
   addAppointment() {
     this.config.context = {appointments : this.patient?.appointments}
     this.nbDialogService.open(CreateAppointmentComponent, this.config).onClose.subscribe((value: Appointment) =>{
-
+      if (!value) return;
       if (this.patient) {
         let start = String(value.timeFrom).indexOf(':') - 2 || 0;
         let end = String(value.timeFrom).lastIndexOf(':');
@@ -150,15 +148,20 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
 
   addFeedBack() {
     this.nbDialogService.open(AddFeedbackComponent, this.config).onClose.subscribe((value: Feedback) => {
+      if (!value) return;
       value.patient= this.patient?.email;
       this.feedbackControllerService.saveUsingPOST2(value).subscribe(value => {
         console.log(value);
+        if (value) {
+          this.getFeedbackRows();
+        }
       })
     });
   }
 
   addDisease() {
     this.nbDialogService.open(DiseaseFormComponent, this.config).onClose.subscribe((value: Disease) => {
+      if (!value) return;
       value.patient = this.patient?.email;
       this.diseaseControllerService.saveUsingPOST1(value).subscribe(value1 => {
         if(value) {
@@ -178,4 +181,45 @@ export class PatientDashboardComponent implements OnInit, OnDestroy{
   }
 
 
+  deleteAppointment($event: Disease | Appointment | Feedback) {
+    if ($event?.id) {
+      let params: AppointmentControllerService.DeleteUsingPOSTParams = {
+        id: Number($event.id),
+        item: $event
+      }
+      this.appointmentControllerService.deleteUsingPOST(params).subscribe( value => {
+        if (value) {
+          this.getAppointments();
+        }
+      });
+    }
+  }
+
+  deleteDisease($event: Disease | Appointment | Feedback) {
+    if ($event?.id) {
+      let params: DiseaseControllerService.DeleteUsingPOST1Params = {
+        id: Number($event.id),
+        item: $event
+      }
+      this.diseaseControllerService.deleteUsingPOST1(params).subscribe( value => {
+        if (value) {
+          this.getDiseaseRows();
+        }
+      });
+    }
+  }
+
+  deleteFeedback($event: Disease | Appointment | Feedback) {
+    if ($event?.id) {
+      let params: FeedbackControllerService.DeleteUsingPOST2Params = {
+        id: $event.id,
+        item: $event
+      }
+      this.feedbackControllerService.deleteUsingPOST2(params).subscribe( value => {
+        if (value) {
+          this.getFeedbackRows();
+        }
+      });
+    }
+  }
 }

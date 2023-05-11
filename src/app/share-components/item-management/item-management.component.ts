@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output}
 import {NbComponentSize} from "@nebular/theme";
 import {Appointment} from "../../api/models/appointment";
 import {Feedback} from "../../api/models/feedback";
+import {Disease} from "../../api/models/disease";
 
 export enum Mode  {
   APPOINTMENT,
@@ -27,6 +28,9 @@ export class ItemManagementComponent implements OnInit {
   @Output()
   openAdd = new EventEmitter<String>();
 
+  @Output()
+  deleteItem : EventEmitter<Disease | Appointment | Feedback>=  new EventEmitter<Feedback>();
+
   @Input()
   columns : {prop: string} | any = [{ prop: 'name' }, { name: 'Gender' }, { name: 'Company', sortable: false }];
 
@@ -44,6 +48,7 @@ export class ItemManagementComponent implements OnInit {
   }
 
   delete(value: any) {
+    this.deleteItem.emit(value);
   }
 
   clickAdd() {

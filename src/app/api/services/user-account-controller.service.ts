@@ -20,7 +20,6 @@ class UserAccountControllerService extends __BaseService {
   static readonly getAllUsingGET4Path = '/account';
   static readonly deleteUsingPOST4Path = '/account/delete/{id}';
   static readonly saveUsingPOST4Path = '/account/save';
-  static readonly updateUsingPOST4Path = '/account/update/{id}';
   static readonly getOneUsingGET4Path = '/account/{id}';
   static readonly updateUsingPUT4Path = '/account/{id}';
   static readonly getUsingGET4Path = '/account/{itemsPerPage}/{pageNo}';
@@ -155,55 +154,6 @@ class UserAccountControllerService extends __BaseService {
   }
 
   /**
-   * update
-   * @param params The `UserAccountControllerService.UpdateUsingPOST4Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST4Response(params: UserAccountControllerService.UpdateUsingPOST4Params): __Observable<__StrictHttpResponse<{}>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = params.item;
-
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/account/update/${encodeURIComponent(String(params.id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
-      })
-    );
-  }
-  /**
-   * update
-   * @param params The `UserAccountControllerService.UpdateUsingPOST4Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST4(params: UserAccountControllerService.UpdateUsingPOST4Params): __Observable<{}> {
-    return this.updateUsingPOST4Response(params).pipe(
-      __map(_r => _r.body as {})
-    );
-  }
-
-  /**
    * getOne
    * @param id id
    * @return OK
@@ -251,7 +201,7 @@ class UserAccountControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT4Response(params: UserAccountControllerService.UpdateUsingPUT4Params): __Observable<__StrictHttpResponse<{}>> {
+  updateUsingPUT4Response(params: UserAccountControllerService.UpdateUsingPUT4Params): __Observable<__StrictHttpResponse<UserAccount>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -270,7 +220,7 @@ class UserAccountControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<UserAccount>;
       })
     );
   }
@@ -284,9 +234,9 @@ class UserAccountControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT4(params: UserAccountControllerService.UpdateUsingPUT4Params): __Observable<{}> {
+  updateUsingPUT4(params: UserAccountControllerService.UpdateUsingPUT4Params): __Observable<UserAccount> {
     return this.updateUsingPUT4Response(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as UserAccount)
     );
   }
 
@@ -355,23 +305,7 @@ module UserAccountControllerService {
     /**
      * id
      */
-    id: number;
-  }
-
-  /**
-   * Parameters for updateUsingPOST4
-   */
-  export interface UpdateUsingPOST4Params {
-
-    /**
-     * item
-     */
-    item: UserAccount;
-
-    /**
-     * id
-     */
-    id: number;
+    id: string;
   }
 
   /**
@@ -387,7 +321,7 @@ module UserAccountControllerService {
     /**
      * id
      */
-    id: number;
+    id: string;
   }
 
   /**

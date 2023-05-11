@@ -22,7 +22,6 @@ class FeedbackControllerService extends __BaseService {
   static readonly getDoctorUsingGET1Path = '/feedback/doctor/{email}';
   static readonly getPatientUsingGETPath = '/feedback/patient/{email}';
   static readonly saveUsingPOST2Path = '/feedback/save';
-  static readonly updateUsingPOST2Path = '/feedback/update/{id}';
   static readonly getOneUsingGET2Path = '/feedback/{id}';
   static readonly updateUsingPUT2Path = '/feedback/{id}';
   static readonly getUsingGET2Path = '/feedback/{itemsPerPage}/{pageNo}';
@@ -233,60 +232,11 @@ class FeedbackControllerService extends __BaseService {
   }
 
   /**
-   * update
-   * @param params The `FeedbackControllerService.UpdateUsingPOST2Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST2Response(params: FeedbackControllerService.UpdateUsingPOST2Params): __Observable<__StrictHttpResponse<{}>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = params.item;
-
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/feedback/update/${encodeURIComponent(String(params.id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
-      })
-    );
-  }
-  /**
-   * update
-   * @param params The `FeedbackControllerService.UpdateUsingPOST2Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST2(params: FeedbackControllerService.UpdateUsingPOST2Params): __Observable<{}> {
-    return this.updateUsingPOST2Response(params).pipe(
-      __map(_r => _r.body as {})
-    );
-  }
-
-  /**
    * getOne
    * @param id id
    * @return OK
    */
-  getOneUsingGET2Response(id: string): __Observable<__StrictHttpResponse<Feedback>> {
+  getOneUsingGET2Response(id: number): __Observable<__StrictHttpResponse<Feedback>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -313,7 +263,7 @@ class FeedbackControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  getOneUsingGET2(id: string): __Observable<Feedback> {
+  getOneUsingGET2(id: number): __Observable<Feedback> {
     return this.getOneUsingGET2Response(id).pipe(
       __map(_r => _r.body as Feedback)
     );
@@ -329,7 +279,7 @@ class FeedbackControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT2Response(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<__StrictHttpResponse<{}>> {
+  updateUsingPUT2Response(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<__StrictHttpResponse<Feedback>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -348,7 +298,7 @@ class FeedbackControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Feedback>;
       })
     );
   }
@@ -362,9 +312,9 @@ class FeedbackControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT2(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<{}> {
+  updateUsingPUT2(params: FeedbackControllerService.UpdateUsingPUT2Params): __Observable<Feedback> {
     return this.updateUsingPUT2Response(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Feedback)
     );
   }
 
@@ -424,22 +374,6 @@ module FeedbackControllerService {
    * Parameters for deleteUsingPOST2
    */
   export interface DeleteUsingPOST2Params {
-
-    /**
-     * item
-     */
-    item: Feedback;
-
-    /**
-     * id
-     */
-    id: number;
-  }
-
-  /**
-   * Parameters for updateUsingPOST2
-   */
-  export interface UpdateUsingPOST2Params {
 
     /**
      * item

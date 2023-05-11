@@ -21,7 +21,6 @@ class DiseaseControllerService extends __BaseService {
   static readonly deleteUsingPOST1Path = '/disease/delete/{id}';
   static readonly getByPatientEmailUsingGETPath = '/disease/patient/{email}';
   static readonly saveUsingPOST1Path = '/disease/save';
-  static readonly updateUsingPOST1Path = '/disease/update/{id}';
   static readonly getOneUsingGET1Path = '/disease/{id}';
   static readonly updateUsingPUT1Path = '/disease/{id}';
   static readonly getUsingGET1Path = '/disease/{itemsPerPage}/{pageNo}';
@@ -194,60 +193,11 @@ class DiseaseControllerService extends __BaseService {
   }
 
   /**
-   * update
-   * @param params The `DiseaseControllerService.UpdateUsingPOST1Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST1Response(params: DiseaseControllerService.UpdateUsingPOST1Params): __Observable<__StrictHttpResponse<{}>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = params.item;
-
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/disease/update/${encodeURIComponent(String(params.id))}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
-      })
-    );
-  }
-  /**
-   * update
-   * @param params The `DiseaseControllerService.UpdateUsingPOST1Params` containing the following parameters:
-   *
-   * - `item`: item
-   *
-   * - `id`: id
-   *
-   * @return OK
-   */
-  updateUsingPOST1(params: DiseaseControllerService.UpdateUsingPOST1Params): __Observable<{}> {
-    return this.updateUsingPOST1Response(params).pipe(
-      __map(_r => _r.body as {})
-    );
-  }
-
-  /**
    * getOne
    * @param id id
    * @return OK
    */
-  getOneUsingGET1Response(id: string): __Observable<__StrictHttpResponse<Disease>> {
+  getOneUsingGET1Response(id: number): __Observable<__StrictHttpResponse<Disease>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -274,7 +224,7 @@ class DiseaseControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  getOneUsingGET1(id: string): __Observable<Disease> {
+  getOneUsingGET1(id: number): __Observable<Disease> {
     return this.getOneUsingGET1Response(id).pipe(
       __map(_r => _r.body as Disease)
     );
@@ -290,7 +240,7 @@ class DiseaseControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT1Response(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<__StrictHttpResponse<{}>> {
+  updateUsingPUT1Response(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<__StrictHttpResponse<Disease>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -309,7 +259,7 @@ class DiseaseControllerService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<{}>;
+        return _r as __StrictHttpResponse<Disease>;
       })
     );
   }
@@ -323,9 +273,9 @@ class DiseaseControllerService extends __BaseService {
    *
    * @return OK
    */
-  updateUsingPUT1(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<{}> {
+  updateUsingPUT1(params: DiseaseControllerService.UpdateUsingPUT1Params): __Observable<Disease> {
     return this.updateUsingPUT1Response(params).pipe(
-      __map(_r => _r.body as {})
+      __map(_r => _r.body as Disease)
     );
   }
 
@@ -385,22 +335,6 @@ module DiseaseControllerService {
    * Parameters for deleteUsingPOST1
    */
   export interface DeleteUsingPOST1Params {
-
-    /**
-     * item
-     */
-    item: Disease;
-
-    /**
-     * id
-     */
-    id: number;
-  }
-
-  /**
-   * Parameters for updateUsingPOST1
-   */
-  export interface UpdateUsingPOST1Params {
 
     /**
      * item
