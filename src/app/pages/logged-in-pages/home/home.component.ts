@@ -29,13 +29,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.patients$ = this.patientControllerService.getAllUsingGET3();
-    this.getPatients();
+    if (this.sessionService.getType() == 'PATIENT'){
+      this.patientControllerService.getOneUsingGET3(this.sessionService.getAccount().email || '').subscribe(value => {
+        if (!value) return;
+        this.selectedPatient = value;
+      });
+    } else {
+      this.getPatients();
+    }
   }
 
   getPatients() {
     this.patients$?.subscribe(value => {
       this.accounts = [...value.map(m => m.userAccount).filter(value => value?.accountType ==='PATIENT')];
       this.allAccounts = [...value.map(m => m.userAccount)];
+      let num = this.allAccounts.findIndex(value1 => value1?.email == this.sessionService.getAccount().email);
+      this.allAccounts.splice(num, 1);
     });
   }
 
@@ -95,5 +104,13 @@ export class HomeComponent implements OnInit {
         this.getPatients();
       }
     })
+  }
+
+  allowUserTypes() {
+    return this.sessionService.getType() == 'ADMIN' || this.sessionService.getAccount().userName?.includes('adm');
+  }
+
+  isDoctor() {
+    return this.sessionService.getType() == 'DOCTOR';
   }
 }

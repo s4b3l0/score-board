@@ -1,4 +1,4 @@
-<nb-card size="large">
+<nb-card size="large" *ngIf="allowUserTypes()">
   <nb-card-header>User Admin</nb-card-header>
   <nb-card-body>
     <table class="table table-hover">
@@ -23,18 +23,18 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card size="large">
-  <nb-card-header><h1>{{name}}</h1></nb-card-header>
+<nb-card size="large" >
+  <nb-card-header><h1>{{ selectedPatient?.userAccount?.userName || 'Patient Zone'}}</h1></nb-card-header>
   <nb-card-body >
     <div class="container">
       <div class="row">
-        <nb-accordion >
-          <nb-accordion-item >
+        <nb-accordion *ngIf="isDoctor()" >
+          <nb-accordion-item  >
             <nb-accordion-item-header>
               Patients
             </nb-accordion-item-header>
             <nb-accordion-item-body>
-              <table class="table table-hover">
+              <table class="table table-hover" >
                 <thead>
                 <th>Email</th>
                 <th>User Name</th>
@@ -55,7 +55,7 @@
           </nb-accordion-item>
         </nb-accordion>
       <div class="row" *ngIf="selectedPatient">
-        <app-patient-dashboard >
+        <app-patient-dashboard [patient]="selectedPatient" >
         </app-patient-dashboard>
       </div>
     </div>

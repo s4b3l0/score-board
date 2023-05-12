@@ -208,7 +208,7 @@ class PatientControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  getOneUsingGET3Response(id: number): __Observable<__StrictHttpResponse<Patient>> {
+  getOneUsingGET3Response(id: string): __Observable<__StrictHttpResponse<Patient>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -235,7 +235,7 @@ class PatientControllerService extends __BaseService {
    * @param id id
    * @return OK
    */
-  getOneUsingGET3(id: number): __Observable<Patient> {
+  getOneUsingGET3(id: string): __Observable<Patient> {
     return this.getOneUsingGET3Response(id).pipe(
       __map(_r => _r.body as Patient)
     );
@@ -371,7 +371,7 @@ module PatientControllerService {
     /**
      * id
      */
-    id: number;
+    id: string;
   }
 
   /**
@@ -387,7 +387,7 @@ module PatientControllerService {
     /**
      * id
      */
-    id: number;
+    id: string;
   }
 
   /**

@@ -3,6 +3,7 @@ import {NbComponentSize} from "@nebular/theme";
 import {Appointment} from "../../api/models/appointment";
 import {Feedback} from "../../api/models/feedback";
 import {Disease} from "../../api/models/disease";
+import {SessionService} from "../../util/session.service";
 
 export enum Mode  {
   APPOINTMENT,
@@ -18,6 +19,13 @@ export enum Mode  {
 })
 export class ItemManagementComponent implements OnInit {
 
+  enableEdit = true;
+
+  constructor(private sessionService: SessionService) {
+    if (this.sessionService.getType() == 'PATIENT') {
+      this.enableEdit = false;
+    }
+  }
 
   ngOnInit(): void {
   }

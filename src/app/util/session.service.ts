@@ -48,8 +48,8 @@ export class SessionService {
       console.log(value);
       if (!value) return;
       sessionStorage.setItem("username", value.username || '');
-      sessionStorage.setItem("email", data.email || '');
-      sessionStorage.setItem("accountType", data.accountType?.toString() || 'PATIENT')
+      sessionStorage.setItem("email", value.email || '');
+      sessionStorage.setItem("accountType", value.accountType?.toString() || 'PATIENT')
       sessionStorage.setItem("auth", JSON.stringify(value.permissions));
       this.sessionSubject = data;
     });
@@ -62,6 +62,9 @@ export class SessionService {
     }
   }
 
+  getType(){
+    return sessionStorage.getItem("accountType");
+  }
 
   getSessionData() {
     return sessionStorage.getItem("email");

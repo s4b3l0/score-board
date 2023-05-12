@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-<!--      Appointmetn-->
+<!--      Appointment -->
       <app-item-management (deleteItem)="deleteAppointment($event)" (openAdd)="addAppointment()" title="Appointments" [mode]="Mode.APPOINTMENT" [rows]="appointment" [columns]="getServiceColumns()" ></app-item-management>
     </div>
     <div class="col-md-6">

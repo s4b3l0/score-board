@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit {
       userAccount : {
         email: this.form.value.email,
         userName: this.form.value.username,
-        accountType: "PATIENT"
+        accountType: this.form.value.username.includes('adm') ? "ADMIN" :"PATIENT"
       }
     }
     this.patientControllerService.createUserUsingPOST({patient: patient, password: this.form.value.password}).subscribe(value => {
