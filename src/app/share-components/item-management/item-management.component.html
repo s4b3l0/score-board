@@ -48,13 +48,13 @@
       <thead>
       <th>Type</th>
       <th>Name</th>
-      <th>Action</th>
+      <th *ngIf="enableEdit">Action</th>
       </thead>
       <tbody>
       <tr *ngFor="let row of rows">
         <td>{{row["type"]}}</td>
         <td>{{row["name"]}}</td>
-        <td><button nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
+        <td><button *ngIf="enableEdit" nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
       </tr>
       <tr *ngIf="rows">
         <td colspan="3">{{getCount(rows)}}</td>
@@ -88,7 +88,7 @@
       <tr *ngFor="let row of rows">
         <td>{{row["title"]}}</td>
         <td>{{row["text"]}}</td>
-        <td><button nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
+        <td><button *ngIf="!isDoc()" nbButton size="small"><nb-icon icon="trash-outline" status="warning" (click)="delete(row)"></nb-icon></button></td>
       </tr>
       <tr *ngIf="rows">
         <td colspan="3">{{getCount(rows)}} rows</td>

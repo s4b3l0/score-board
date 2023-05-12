@@ -91,4 +91,8 @@ export class ItemManagementComponent implements OnInit {
     }
     return 0;
   }
+
+  isDoc() {
+    return this.sessionService.getType() == 'DOCTOR';
+  }
 }
